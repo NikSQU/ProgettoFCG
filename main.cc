@@ -452,7 +452,7 @@ public:
 
     void draw ()
     {
-        // 1. Pulizia dei buffer dello schermo
+        //Pulizia dei buffer dello schermo
         glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // ===========================================================
@@ -474,10 +474,8 @@ public:
         // TAPPA 02: La Torre del Mulino (Rimpicciolita e Cilindrica)
         // ===========================================================
 
-        // Dimensioni ridotte: larghezza/profondità 0.3, altezza 1.2
         glm::mat4 s_torre = fcg::scaling (0.3, 1.2, 0.3);
         
-        // Nuova quota: tetto suolo (-0.9) + metà altezza (0.6) = -0.3
         glm::mat4 tr_torre = fcg::translation (0.0, -0.3, 0.0);
         
         glm::mat4 torre_mm = tr_torre * s_torre * mesh_mm;
@@ -488,6 +486,50 @@ public:
         glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_torre[0][0]);
 
         mesh.draw ();
+
+        // ===========================================================
+        // TAPPA 03: Il Rotore (Il mozzo centrale animato)
+        // ===========================================================
+        
+        static float angolo_rotore = 0.0f;
+        angolo_rotore += 0.5f; //velocità mulino
+
+        glm::mat4 s_rotore = fcg::scaling (0.1, 0.1, 0.2);
+        
+        glm::mat4 r_rotore = glm::rotate (glm::mat4(1.0f), glm::radians(angolo_rotore), glm::vec3(0.0f, 0.0f, 1.0f));
+        
+        glm::mat4 tr_rotore = fcg::translation (0.0, 0.15, 0.16);
+        
+        glm::mat4 matrice_base_rotore = tr_rotore * r_rotore;
+        
+        glm::mat4 rotore_mm = matrice_base_rotore * s_rotore * mesh_mm;
+
+        //invia i dati alla scheda video
+        glUniformMatrix4fv(model_loc, 1, GL_FALSE, &rotore_mm[0][0]);
+        glm::mat3 tr_inv_rotore = glm::transpose (glm::inverse (glm::mat3 (rotore_mm)));
+        glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_rotore[0][0]);
+
+        mesh.draw ();
+
+        //ciclo for per disegnare le 4 pale
+        for (int i = 0; i < 4; i++) {
+            
+            glm::mat4 s_pala = fcg::scaling (0.8, 0.1, 0.02);
+            
+            glm::mat4 tr_pala = fcg::translation (0.4, 0.0, 0.0);
+            
+            float angolo_pala = i * 90.0f;
+            glm::mat4 r_pala = glm::rotate (glm::mat4(1.0f), glm::radians(angolo_pala), glm::vec3(0.0f, 0.0f, 1.0f));
+            
+            glm::mat4 pala_mm = matrice_base_rotore * r_pala * tr_pala * s_pala * mesh_mm;
+            
+            glUniformMatrix4fv(model_loc, 1, GL_FALSE, &pala_mm[0][0]);
+            
+            glm::mat3 tr_inv_pala = glm::transpose (glm::inverse (glm::mat3 (pala_mm)));
+            glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_pala[0][0]);
+
+            mesh.draw ();
+        }
     }
 };
 
