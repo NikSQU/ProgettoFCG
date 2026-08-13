@@ -151,7 +151,7 @@ public:
 
 private:
     /** Intrinsic camera parameters **/
-    const float normal_fd = 50.0 / 18.0; 
+    const float normal_fd = 80.0;
     const float tele_fd =  400.0 / 18.0;
     const float wide_fd = 24 / 18.0;
     float fd; // focal distance
@@ -455,33 +455,40 @@ public:
         // 1. Pulizia dei buffer dello schermo
         glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // -----------------------------------------------------------
-        // INIZIO CODICE TAPPA 01: Il Suolo del Mulino
-        // -----------------------------------------------------------
-        // Creiamo una scalatura per rendere la mesh larga e sottile (es. 6x6 largo, 0.2 alto)
-        glm::mat4 s = fcg::scaling (6.0, 0.2, 6.0);
-        // La spostiamo leggermente verso il basso per fare da pavimento
-        glm::mat4 tr = fcg::translation (0.0, -1.0, 0.0);
-        
-        // Calcoliamo la matrice di modello finale del suolo
-        glm::mat4 suolo_mm = tr * s * mesh_mm;
+        // ===========================================================
+        // TAPPA 01: Il Suolo del Mulino
+        // ===========================================================
+        glm::mat4 s_suolo = fcg::scaling (6.0, 0.2, 6.0);
+        glm::mat4 tr_suolo = fcg::translation (0.0, -1.0, 0.0);
+        glm::mat4 suolo_mm = tr_suolo * s_suolo * mesh_mm;
 
-        // Invia la matrice di modello allo shader
         glUniformMatrix4fv(model_loc, 1, GL_FALSE, &suolo_mm[0][0]);
-        // Invia la matrice di vista-proiezione (VP)
         glUniformMatrix4fv(vp_loc, 1, GL_FALSE, &camera.vp[0][0]);
 
-        // Calcola e invia la matrice normale (trasposta dell'inversa del modello)
-        glm::mat3 tr_inv_model = glm::transpose (glm::inverse (glm::mat3 (suolo_mm)));
-        glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_model[0][0]);
+        glm::mat3 tr_inv_suolo = glm::transpose (glm::inverse (glm::mat3 (suolo_mm)));
+        glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_suolo[0][0]);
 
-        // Disegna la mesh a schermo
         mesh.draw ();
-        // -----------------------------------------------------------
-        // FINE CODICE TAPPA 01
-        // -----------------------------------------------------------
+
+        // ===========================================================
+        // TAPPA 02: La Torre del Mulino (Rimpicciolita e Cilindrica)
+        // ===========================================================
+
+        // Dimensioni ridotte: larghezza/profondità 0.3, altezza 1.2
+        glm::mat4 s_torre = fcg::scaling (0.3, 1.2, 0.3);
+        
+        // Nuova quota: tetto suolo (-0.9) + metà altezza (0.6) = -0.3
+        glm::mat4 tr_torre = fcg::translation (0.0, -0.3, 0.0);
+        
+        glm::mat4 torre_mm = tr_torre * s_torre * mesh_mm;
+
+        glUniformMatrix4fv(model_loc, 1, GL_FALSE, &torre_mm[0][0]);
+        
+        glm::mat3 tr_inv_torre = glm::transpose (glm::inverse (glm::mat3 (torre_mm)));
+        glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_torre[0][0]);
+
+        mesh.draw ();
     }
-    
 };
 
 
