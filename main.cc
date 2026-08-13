@@ -452,12 +452,20 @@ public:
 
     void draw ()
     {
+        //colore cielo
+        glClearColor(0.4f, 0.6f, 0.9f, 1.0f);
         //Pulizia dei buffer dello schermo
         glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // ===========================================================
         // TAPPA 01: Il Suolo del Mulino
         // ===========================================================
+        
+        //Colori suolo
+        lights.material_diffuse = {0.2f, 0.6f, 0.2f};
+        lights.material_ambient = {0.1f, 0.3f, 0.1f};
+        lights.send_parameters();
+
         glm::mat4 s_suolo = fcg::scaling (6.0, 0.2, 6.0);
         glm::mat4 tr_suolo = fcg::translation (0.0, -1.0, 0.0);
         glm::mat4 suolo_mm = tr_suolo * s_suolo * mesh_mm;
@@ -473,6 +481,11 @@ public:
         // ===========================================================
         // TAPPA 02: La Torre del Mulino (Rimpicciolita e Cilindrica)
         // ===========================================================
+
+        //Colori torre
+        lights.material_diffuse = {0.35f, 0.35f, 0.35f}; 
+        lights.material_ambient = {0.2f, 0.2f, 0.2f};
+        lights.send_parameters();
 
         glm::mat4 s_torre = fcg::scaling (0.3, 1.2, 0.3);
         
@@ -491,6 +504,11 @@ public:
         // TAPPA 03: Il Rotore (Il mozzo centrale animato)
         // ===========================================================
         
+        //Colori rotore
+        lights.material_diffuse = {0.3f, 0.15f, 0.05f}; 
+        lights.material_ambient = {0.15f, 0.07f, 0.02f};
+        lights.send_parameters();
+
         static float angolo_rotore = 0.0f;
         angolo_rotore += 0.5f; //velocità mulino
 
@@ -511,11 +529,15 @@ public:
 
         mesh.draw ();
 
-        //ciclo for per disegnare le 4 pale
+        //Pale e Vele del Mulino
         for (int i = 0; i < 4; i++) {
             
-            glm::mat4 s_pala = fcg::scaling (0.8, 0.1, 0.02);
-            
+            //Colore Pale
+            lights.material_diffuse = {0.3f, 0.15f, 0.05f}; 
+            lights.material_ambient = {0.15f, 0.07f, 0.02f};
+            lights.send_parameters();
+
+            glm::mat4 s_pala = fcg::scaling (0.8, 0.05, 0.02);
             glm::mat4 tr_pala = fcg::translation (0.4, 0.0, 0.0);
             
             float angolo_pala = i * 90.0f;
@@ -524,10 +546,25 @@ public:
             glm::mat4 pala_mm = matrice_base_rotore * r_pala * tr_pala * s_pala * mesh_mm;
             
             glUniformMatrix4fv(model_loc, 1, GL_FALSE, &pala_mm[0][0]);
-            
             glm::mat3 tr_inv_pala = glm::transpose (glm::inverse (glm::mat3 (pala_mm)));
             glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_pala[0][0]);
+            mesh.draw ();
 
+            //Vela
+            //Colore Vela
+            lights.material_diffuse = {0.9f, 0.9f, 0.9f}; 
+            lights.material_ambient = {0.6f, 0.6f, 0.6f};
+            lights.send_parameters();
+
+            glm::mat4 s_vela = fcg::scaling (0.7, 0.2, 0.01);
+            glm::mat4 tr_vela = fcg::translation (0.45, -0.12, 0.0);
+            
+            //la stessa rotazione dell'asta (r_pala)
+            glm::mat4 vela_mm = matrice_base_rotore * r_pala * tr_vela * s_vela * mesh_mm;
+            
+            glUniformMatrix4fv(model_loc, 1, GL_FALSE, &vela_mm[0][0]);
+            glm::mat3 tr_inv_vela = glm::transpose (glm::inverse (glm::mat3 (vela_mm)));
+            glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_vela[0][0]);
             mesh.draw ();
         }
     }
