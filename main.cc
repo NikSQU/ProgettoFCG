@@ -416,6 +416,9 @@ protected:
 class Scene
 {
 public:
+    float velocita_rotore = 0.5f;
+    float velocita_salvata = 0.5f;
+    float angolo_rotore = 0.0f;
     Camera camera;
     Lights lights;
     GPUMesh mesh;
@@ -509,8 +512,7 @@ public:
         lights.material_ambient = {0.15f, 0.07f, 0.02f};
         lights.send_parameters();
 
-        static float angolo_rotore = 0.0f;
-        angolo_rotore += 0.5f; //velocità mulino
+        angolo_rotore += velocita_rotore;
 
         glm::mat4 s_rotore = fcg::scaling (0.1, 0.1, 0.2);
         
@@ -606,12 +608,12 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
         scene.locations (shaders);
         scene.update_all ();
         return;
-    case sf::Keyboard::Scancode::C:
+    /*case sf::Keyboard::Scancode::C:
         shaders.reload ("shader_normals.vert", "shader_normals.frag");
         shaders.use ();
         scene.locations (shaders);
         scene.update_all ();
-        return;
+        return;*/
     case sf::Keyboard::Scancode::N:
         scene.camera.lens_normal ();
         scene.lights.send_position_relative (scene.camera.inv_v);
@@ -623,6 +625,27 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
     case sf::Keyboard::Scancode::W:
         scene.camera.lens_wide ();
         scene.lights.send_position_relative (scene.camera.inv_v);
+        return;
+    case sf::Keyboard::Scancode::Up:
+        if (scene.velocita_rotore < 5.0f) {
+            scene.velocita_rotore += 0.2f;
+        }
+        return;
+    case sf::Keyboard::Scancode::Down:
+        if (scene.velocita_rotore > 0.0f) {
+            scene.velocita_rotore -= 0.2f;
+        }
+        if (scene.velocita_rotore < 0.0f) scene.velocita_rotore = 0.0f;  //Per evitare che la velocità arrivi a -0.2
+        return;
+    case sf::Keyboard::Scancode::Space:
+        if (scene.velocita_rotore == 0.0f) {
+            // PLAY
+            scene.velocita_rotore = scene.velocita_salvata;
+        } else {
+            // PAUSA
+            scene.velocita_salvata = scene.velocita_rotore;
+            scene.velocita_rotore = 0.0f;
+        }
         return;
     default:
         return;
