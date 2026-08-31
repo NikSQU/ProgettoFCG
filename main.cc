@@ -755,10 +755,10 @@ int main (int argc, char* argv[])
                 handle (*resized, scene.camera);
             else if (const auto* key_pressed = event->getIf<sf::Event::KeyPressed> ())
                 handle (*key_pressed, shaders, scene);
-            else if (const auto* mouse_pressed = event->getIf<sf::Event::MouseButtonPressed> ())
+            /*else if (const auto* mouse_pressed = event->getIf<sf::Event::MouseButtonPressed> ())
                 handle (*mouse_pressed, scene.camera);
             else if (const auto* mouse_released = event->getIf<sf::Event::MouseButtonReleased> ())
-                handle (*mouse_released, scene.camera);
+                handle (*mouse_released, scene.camera);*/
             else if (const auto* mouse_moved = event->getIf<sf::Event::MouseMoved> ())
                 handle (*mouse_moved, scene);
         }
