@@ -175,4 +175,9 @@ class Camera
             set_window_size (800, 800);
             view_projection ();
         }
+    
+    void locations (fcg::Shaders& shaders)
+    {
+        camera_pos_loc = glGetUniformLocation (shaders.program, "camera_pos");
+    }
 }
