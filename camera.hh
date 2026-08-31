@@ -180,4 +180,10 @@ class Camera
     {
         camera_pos_loc = glGetUniformLocation (shaders.program, "camera_pos");
     }
+
+    void set_window_size (int w, int h)
+    {
+        ar = ((float) w) / (float) h;
+        view_projection ();
+    }
 }
