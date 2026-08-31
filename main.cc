@@ -79,7 +79,7 @@ public:
 ////////////////////
 // Camera + World //
 ////////////////////
-
+/*
 class Lights
 {
 public:
@@ -142,6 +142,7 @@ public:
         glUniform3fv (light_direct_pos_loc, 1, &light_direct_pos[0]);
     }
 };
+*/
 
 
 class Camera
