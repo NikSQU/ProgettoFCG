@@ -207,4 +207,18 @@ class Camera
 
         view_projection ();
     }
+
+    //vista
+    void view_projection ()
+    {
+        //matrice di vista
+        v = glm::lookAt(camera_pos, camera_pos + camera_front, camera_up);
+        inv_v = glm::inverse(v);
+
+        //matrice di proiezione prospettica
+        glm::mat4 pr = glm::perspective(glm::radians(45.0f), ar, 0.1f, 100.0f);
+
+        vp = pr * v;
+        glUniform3fv(camera_pos_loc, 1, &camera_pos[0]);
+    }
 }
