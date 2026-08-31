@@ -6,7 +6,7 @@
 #include "include/hotshaders.hh"
 #include "include/matrices.hh"
 
-class Camera
+/*class Camera
 {
 public:
     glm::mat4 v;
@@ -148,4 +148,22 @@ public:
         glm::vec3 cp3 = {cp4.x, cp4.y, cp4.z};
         glUniform3fv(camera_pos_loc, 1, &cp3[0]);
     }
-};
+};*/
+
+class Camera
+{
+    public:
+    glm::mat4 v;
+    glm::mat4 inv_v;
+    glm::mat4 vp;
+
+    glm::vec3 camera_pos   = glm::vec3(0.0f, 1.0f, 5.0f); // Pos partenza
+    glm::vec3 camera_front = glm::vec3(0.0f, 0.0f, -1.0f); // Guarda verso -Z
+    glm::vec3 camera_up    = glm::vec3(0.0f, 1.0f, 0.0f);  // Up verso +Y
+
+    float yaw   = -90.0f;
+    float pitch = 0.0f;
+    float ar = 1.0f; // Aspect ratio
+
+
+}
