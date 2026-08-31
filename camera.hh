@@ -186,4 +186,25 @@ class Camera
         ar = ((float) w) / (float) h;
         view_projection ();
     }
+
+    //mouse
+    void process_mouse (float dx, float dy)
+    {
+        float sensitivity = 0.2f;
+        yaw += dx * sensitivity;
+        pitch -= dy * sensitivity; // Invertito perché le Y dello schermo vanno verso il basso
+
+        //evitiamo che si spacchi il collo
+        if (pitch > 89.0f) pitch = 89.0f;
+        if (pitch < -89.0f) pitch = -89.0f;
+
+        //Calcolo sul front vector della cam
+        glm::vec3 front;
+        front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+        front.y = sin(glm::radians(pitch));
+        front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+        camera_front = glm::normalize(front);
+
+        view_projection ();
+    }
 }
