@@ -4,6 +4,7 @@
 #include <glm/ext/matrix_transform.hpp>
 #include "include/trackball.hh"
 #include "include/hotshaders.hh"
+#include "include/matrices.hh"
 
 class Camera
 {
@@ -34,7 +35,7 @@ public:
     {
         locations (shaders);
         lens_normal ();
-        set_window_size (Setup::window_width, Setup::window_height);
+        set_window_size (800, 800);
         view_projection ();
     }
 

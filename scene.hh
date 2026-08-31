@@ -24,6 +24,7 @@ public:
     glm::mat4 mesh_mm;
 
     GLint model_loc;
+    GLint vp_loc; 
     GLint tr_inv_model_loc;
 
     void locations(fcg::Shaders& shaders);

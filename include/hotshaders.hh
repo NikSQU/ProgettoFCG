@@ -1,6 +1,7 @@
 #ifndef HOT_SHADERS_HH
 #define HOT_SHADERS_HH
 
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <filesystem>
