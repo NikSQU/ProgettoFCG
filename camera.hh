@@ -150,6 +150,7 @@ public:
     }
 };*/
 
+//Tappa 07
 class Camera
 {
     public:
