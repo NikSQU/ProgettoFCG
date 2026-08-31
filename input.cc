@@ -36,7 +36,7 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
         scene.locations (shaders);
         scene.update_all ();
         return;*/
-    case sf::Keyboard::Scancode::N:
+    /*case sf::Keyboard::Scancode::N:
         scene.camera.lens_normal ();
         scene.lights.send_position_relative (scene.camera.inv_v);
         return;
@@ -47,7 +47,7 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
     case sf::Keyboard::Scancode::W:
         scene.camera.lens_wide ();
         scene.lights.send_position_relative (scene.camera.inv_v);
-        return;
+        return;*/
     case sf::Keyboard::Scancode::Up:
         if (scene.velocita_rotore < 5.0f) {
             scene.velocita_rotore += 0.2f;
