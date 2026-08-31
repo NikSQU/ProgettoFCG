@@ -165,5 +165,14 @@ class Camera
     float pitch = 0.0f;
     float ar = 1.0f; // Aspect ratio
 
+    private:
+    GLint camera_pos_loc;
 
+    public:
+        Camera (fcg::Shaders& shaders)
+        {
+            locations (shaders);
+            set_window_size (800, 800);
+            view_projection ();
+        }
 }
