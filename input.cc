@@ -114,7 +114,7 @@ void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
     }
 }
 
-
+/*
 void handle (const sf::Event::MouseButtonPressed& mouse_pressed, Camera& camera)
 {
     if (mouse_pressed.button == sf::Mouse::Button::Left) {
@@ -130,3 +130,4 @@ void handle (const sf::Event::MouseButtonReleased& mouse_released, Camera& camer
         camera.stop_rotate ();
     }
 }
+*/
