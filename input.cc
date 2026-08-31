@@ -74,6 +74,7 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
     }
 }
 
+/*
 void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
 {
     float x = mouse_moved.position.x;
@@ -94,6 +95,20 @@ void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
         scene.lights.send_position_relative (scene.camera.inv_v);
     }
 }
+*/
+
+void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
+{
+    static float prev_x = mouse_moved.position.x;
+    static float prev_y = mouse_moved.position.y;
+    
+    float dx = mouse_moved.position.x - prev_x;
+    float dy = mouse_moved.position.y - prev_y;
+    
+    prev_x = mouse_moved.position.x;
+    prev_y = mouse_moved.position.y;
+}
+
 
 void handle (const sf::Event::MouseButtonPressed& mouse_pressed, Camera& camera)
 {
