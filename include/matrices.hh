@@ -81,7 +81,7 @@ namespace fcg
                          dx, dy, dz,  1
                          );
     }
-    glm::mat4 translation (glm::vec3 d)
+    inline glm::mat4 translation (glm::vec3 d)
     {
         return translation (d.x, d.y, d.z);
     }
@@ -98,11 +98,11 @@ namespace fcg
                          0,  0,  0,  1
                          );
     }
-    glm::mat4 scaling (glm::vec3 s)
+    inline glm::mat4 scaling (glm::vec3 s)
     {
         return scaling (s.x, s.y, s.z);
     }
-    glm::mat4 scaling (float s)
+    inline glm::mat4 scaling (float s)
     {
         return scaling (s, s, s);
     }
