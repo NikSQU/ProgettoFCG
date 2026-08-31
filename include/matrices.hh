@@ -11,7 +11,7 @@ namespace fcg
 {
 
     // IDENTITIES
-    glm::mat4 identity ()
+    inline glm::mat4 identity ()
     {
         return glm::mat4(
                          1, 0, 0, 0,
@@ -21,7 +21,7 @@ namespace fcg
                          );
     }
 
-    glm::mat3 identity3 ()
+    inline glm::mat3 identity3 ()
     {
         return glm::mat3(
                          1, 0, 0,
@@ -33,7 +33,7 @@ namespace fcg
 
     // ROTATE
 
-    glm::mat4 rotation_x (float a)
+    inline glm::mat4 rotation_x (float a)
     {
         float s = glm::sin (glm::radians (a));
         float c = glm::cos (glm::radians (a));
@@ -45,7 +45,7 @@ namespace fcg
                          );
     }
 
-    glm::mat4 rotation_y (float a)
+    inline glm::mat4 rotation_y (float a)
     {
         float s = glm::sin (glm::radians (a));
         float c = glm::cos (glm::radians (a));
@@ -57,7 +57,7 @@ namespace fcg
                          );
     }
 
-    glm::mat4 rotation_z (float a)
+    inline glm::mat4 rotation_z (float a)
     {
         float s = glm::sin (glm::radians (a));
         float c = glm::cos (glm::radians (a));
@@ -72,7 +72,7 @@ namespace fcg
 
     // TRANSLATE
 
-    glm::mat4 translation (float dx, float dy, float dz)
+    inline glm::mat4 translation (float dx, float dy, float dz)
     {
         return glm::mat4(
                          1,   0,  0,  0,
@@ -89,7 +89,7 @@ namespace fcg
 
     // SCALE
 
-    glm::mat4 scaling (float sx, float sy, float sz)
+    inline glm::mat4 scaling (float sx, float sy, float sz)
     {
         return glm::mat4(
                          sx, 0,  0,  0,
