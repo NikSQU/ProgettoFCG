@@ -14,6 +14,7 @@
 #include "include/hotshaders.hh"
 #include "include/trackball.hh"
 
+#include "input.hh"
 
 
 /////////////////////////////
@@ -574,7 +575,7 @@ public:
 
 
 
-
+/*
 ////////////////////
 // SFML Callbacks //
 ////////////////////
@@ -614,6 +615,7 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
         scene.locations (shaders);
         scene.update_all ();
         return;*/
+    /*
     case sf::Keyboard::Scancode::N:
         scene.camera.lens_normal ();
         scene.lights.send_position_relative (scene.camera.inv_v);
@@ -651,7 +653,8 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
         return;
     }
 }
-
+*/
+/*
 void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
 {
     float x = mouse_moved.position.x;
@@ -688,6 +691,7 @@ void handle (const sf::Event::MouseButtonReleased& mouse_released, Camera& camer
         camera.stop_rotate ();
     }
 }
+*/
 
 
 
