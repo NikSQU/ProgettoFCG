@@ -1,10 +1,10 @@
 #pragma once
 #include "glad/gl.h"
 #include <glm/glm.hpp>
-#include "input.hh"
-#include "camera.hh" 
-#include "mesh.hh"
+
+#include "camera.hh"
 #include "lights.hh"
+#include "gpumesh.hh"
 
 // Forward declaration
 namespace fcg { class Shaders; }
@@ -18,7 +18,7 @@ public:
     Camera camera;
     Lights lights;
     
-    Mesh mesh;
+    GPUMesh mesh;
     glm::mat4 mesh_mm;
 
     GLint model_loc;

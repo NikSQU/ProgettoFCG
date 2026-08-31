@@ -2,6 +2,18 @@
 #include "glad/gl.h"
 #include <SFML/Window.hpp>
 #include <glm/mat4x4.hpp>
+#include <iostream>
+#include <cstdlib>
+
+#include "include/hotshaders.hh"
+#include "scene.hh"
+#include "input.hh"
+
+
+/*#define GLAD_GL_IMPLEMENTATION
+#include "glad/gl.h"
+#include <SFML/Window.hpp>
+#include <glm/mat4x4.hpp>
 #include <glm/ext/matrix_transform.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/component_wise.hpp>
@@ -15,7 +27,7 @@
 #include "include/trackball.hh"
 
 #include "input.hh"
-#include "scene.hh"
+#include "scene.hh"*/
 
 
 /////////////////////////////
@@ -144,7 +156,7 @@ public:
 };
 */
 
-
+/*
 class Camera
 {
 public:
@@ -153,14 +165,14 @@ public:
     glm::mat4 vp;
 
 private:
-    /** Intrinsic camera parameters **/
+    //Intrisic camera parameters
     const float normal_fd = 80.0;
     const float tele_fd =  400.0 / 18.0;
     const float wide_fd = 24 / 18.0;
     float fd; // focal distance
     float ar; // aspect ratio
 
-    /** Extrinsic camera parameters **/
+    // Extrinsic camera parameters
     // xyz, camera position (fixed in world coordinates)
     glm::vec3 camera_pos = {0.0, 0.0, 0.0};
     GLint camera_pos_loc;
@@ -288,9 +300,9 @@ public:
         glUniform3fv(camera_pos_loc, 1, &cp3[0]);
     }
 };
+*/
 
-
-
+/*
 class GPUMesh
 {
 public:
@@ -414,6 +426,7 @@ protected:
                      GL_STATIC_DRAW);
     }
 };
+*/
 
 /*
 class Scene
