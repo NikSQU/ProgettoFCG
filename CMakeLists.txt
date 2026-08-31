@@ -32,6 +32,8 @@ include_directories(glad include)
 # --- TARGET PRINCIPALE ---
 add_executable(Mulino3D
     main.cc
+    scene.cc
+    input.cc
 )
 
 # Collegamento delle librerie
