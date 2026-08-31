@@ -4,6 +4,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/component_wise.hpp>
 #include "include/mesh.hh"
+#include "include/matrices.hh"
 #include <vector>
 #include <iostream>
 #include <string>

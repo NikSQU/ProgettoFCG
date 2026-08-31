@@ -1,4 +1,4 @@
-#define GLAD_GL_IMPLEMENTATION
+//#define GLAD_GL_IMPLEMENTATION
 #include "glad/gl.h"
 #include <SFML/Window.hpp>
 #include <glm/mat4x4.hpp>

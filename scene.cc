@@ -1,5 +1,12 @@
 #include "scene.hh"
+#include "include/hotshaders.hh"
 #include <glm/ext/matrix_transform.hpp>
+
+Scene::Scene (std::string meshfile, fcg::Shaders& shaders) : camera (shaders), lights (shaders), mesh (meshfile) {
+    locations (shaders);
+    update_all ();
+    mesh_mm = mesh.to_unit_extent;
+}
 
 void Scene::locations (fcg::Shaders& shaders)
     {

@@ -34,6 +34,7 @@ add_executable(Mulino3D
     main.cc
     scene.cc
     input.cc
+    glad.cc
 )
 
 # Collegamento delle librerie
