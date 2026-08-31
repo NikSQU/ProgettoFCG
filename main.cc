@@ -15,6 +15,7 @@
 #include "include/trackball.hh"
 
 #include "input.hh"
+#include "scene.hh"
 
 
 /////////////////////////////
@@ -413,7 +414,7 @@ protected:
     }
 };
 
-
+/*
 class Scene
 {
 public:
@@ -572,7 +573,7 @@ public:
         }
     }
 };
-
+*/
 
 
 /*
