@@ -221,4 +221,4 @@ class Camera
         vp = pr * v;
         glUniform3fv(camera_pos_loc, 1, &camera_pos[0]);
     }
-}
+};
