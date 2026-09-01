@@ -209,6 +209,11 @@ class Camera
         view_projection ();
     }
 
+    void move(float forward_move, float right_move, float up_move)
+    {
+        
+    }
+
     //vista
     void view_projection ()
     {

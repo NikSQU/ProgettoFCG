@@ -59,7 +59,7 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
         }
         if (scene.velocita_rotore < 0.0f) scene.velocita_rotore = 0.0f;  //Per evitare che la velocità arrivi a -0.2
         return;
-    case sf::Keyboard::Scancode::Space:
+    case sf::Keyboard::Scancode::M:
         if (scene.velocita_rotore == 0.0f) {
             // PLAY
             scene.velocita_rotore = scene.velocita_salvata;
