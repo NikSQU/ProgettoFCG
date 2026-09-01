@@ -69,7 +69,7 @@ public:
                                  settings
                                  );*/
         auto desktop = sf::VideoMode::getDesktopMode().size;
-        //window->setVerticalSyncEnabled (true);
+        window->setVerticalSyncEnabled (true);
         /*window->setPosition(sf::Vector2i(
             (desktop.x - window_width) / 2,
             (desktop.y - window_height) / 2
