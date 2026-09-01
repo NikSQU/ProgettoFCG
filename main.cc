@@ -779,7 +779,7 @@ int main (int argc, char* argv[])
                 handle (*mouse_moved, scene);
         }
 
-        scene.process_movement ();
+        handle_realtime_input(scene);
 
         scene.draw ();
         window.display ();
