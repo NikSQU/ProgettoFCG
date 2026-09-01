@@ -749,6 +749,9 @@ int main (int argc, char* argv[])
     window.setMouseCursorVisible(false);
     window.setMouseCursorGrabbed(true);
 
+    //centratura mouse
+    sf::Mouse::setPosition(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), window);
+
     fcg::Shaders shaders ("shader_flat.vert", "shader_flat.frag");
     shaders.use ();
 
