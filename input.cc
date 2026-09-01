@@ -77,7 +77,15 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
 
 void handle_realtime_input(Scene& scene) 
 {
-    
+    float speed = 0.05f;
+    float fwd = 0.0f, rgt = 0.0f, up = 0.0f;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W)) fwd += speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S)) fwd -= speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) rgt += speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) rgt -= speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space)) up += speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) up -= speed;
 }
 
 /*
