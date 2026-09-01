@@ -212,6 +212,7 @@ class Camera
     void move(float forward_move, float right_move, float up_move)
     {
         glm::vec3 flat_front = glm::normalize(glm::vec3(camera_front.x, 0.0f, camera_front.z));
+        glm::vec3 right = glm::normalize(glm::cross(flat_front, camera_up));
     }
 
     //vista
