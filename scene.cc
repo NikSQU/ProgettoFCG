@@ -25,23 +25,6 @@ void Scene::update_all ()
         lights.send_position_relative (camera.inv_v);
     }
 
-void Scene::process_movement() 
-{
-    float speed = 0.05f;
-    float fwd = 0.0f, rgt = 0.0f, up = 0.0f;
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W)) fwd += speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S)) fwd -= speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) rgt += speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) rgt -= speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space)) up += speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) up -= speed;
-
-    if (fwd != 0.0f || rgt != 0.0f || up != 0.0f) {
-        camera.move(fwd, rgt, up);
-        lights.send_position_relative(camera.inv_v);
-    }
-}
 
 void Scene::draw ()
     {

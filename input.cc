@@ -1,5 +1,6 @@
 #include "input.hh"
 #include "scene.hh"
+#include <SFML/Window/Keyboard.hpp>
 
 void handle (const sf::Event::Resized& resized, Camera& camera)
 {
@@ -72,6 +73,11 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
     default:
         return;
     }
+}
+
+void handle_realtime_input(Scene& scene) 
+{
+    
 }
 
 /*
