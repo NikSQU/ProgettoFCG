@@ -86,6 +86,11 @@ void handle_realtime_input(Scene& scene)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) rgt -= speed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space)) up += speed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) up -= speed;
+
+    if (fwd != 0.0f || rgt != 0.0f || up != 0.0f) {
+        scene.camera.move(fwd, rgt, up);
+        scene.lights.send_position_relative(scene.camera.inv_v);
+    }
 }
 
 /*
