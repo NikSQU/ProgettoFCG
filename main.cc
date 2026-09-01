@@ -730,6 +730,8 @@ int main (int argc, char* argv[])
 
     Setup setup;
     sf::Window& window = *setup.window;
+    window.setMouseCursorVisible(false);
+    window.setMouseCursorGrabbed(true);
 
     fcg::Shaders shaders ("shader_flat.vert", "shader_flat.frag");
     shaders.use ();
