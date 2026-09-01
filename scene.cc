@@ -27,7 +27,8 @@ void Scene::update_all ()
 
 void Scene::process_movement() 
 {
-    
+    float speed = 0.05f;
+    float fwd = 0.0f, rgt = 0.0f, up = 0.0f;
 }
 
 void Scene::draw ()
