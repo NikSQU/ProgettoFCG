@@ -36,6 +36,11 @@ void Scene::process_movement()
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) rgt -= speed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::Space)) up += speed;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift)) up -= speed;
+
+    if (fwd != 0.0f || rgt != 0.0f || up != 0.0f) {
+        camera.move(fwd, rgt, up);
+        lights.send_position_relative(camera.inv_v);
+    }
 }
 
 void Scene::draw ()
