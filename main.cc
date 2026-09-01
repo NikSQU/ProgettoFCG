@@ -59,6 +59,7 @@ public:
                                  sf::State::Windowed,
                                  settings
                                  );
+        auto desktop = sf::VideoMode::getDesktopMode().size;
         window->setVerticalSyncEnabled (true);
 
         if (!window->setActive (true)) {
