@@ -779,6 +779,8 @@ int main (int argc, char* argv[])
                 handle (*mouse_moved, scene);
         }
 
+        scene.process_movement ();
+
         scene.draw ();
         window.display ();
     }
