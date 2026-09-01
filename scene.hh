@@ -30,4 +30,5 @@ public:
     void locations(fcg::Shaders& shaders);
     void update_all();
     void draw();
+    void process_movement();
 };
