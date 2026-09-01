@@ -53,18 +53,18 @@ public:
         settings.minorVersion = 1;
 
         window = new sf::Window (
-                                 sf::VideoMode({window_width, window_height}),
-                                 "SFML + OpenGL",
-                                 sf::Style::Default,
-                                 sf::State::Windowed,
-                                 settings
-                                 );
+            sf::VideoMode::getDesktopMode(),
+            "SFML + OpenGL",
+            sf::Style::Default,
+            sf::State::Fullscreen,
+            settings
+        );
         auto desktop = sf::VideoMode::getDesktopMode().size;
-        window->setVerticalSyncEnabled (true);
-        window->setPosition(sf::Vector2i(
+        //window->setVerticalSyncEnabled (true);
+        /*window->setPosition(sf::Vector2i(
             (desktop.x - window_width) / 2,
             (desktop.y - window_height) / 2
-        ));
+        ));*/
 
         if (!window->setActive (true)) {
             std::cerr << "Failure: error during SFML OpenGL Activation." << std::endl;
