@@ -37,8 +37,8 @@
 class Setup
 {
 public:
-    static const int window_width = 800;
-    static const int window_height = 800;
+    //static const int window_width = 800;
+    //static const int window_height = 800;
 
     sf::Window* window;
 
@@ -59,6 +59,13 @@ public:
             sf::State::Fullscreen,
             settings
         );
+        /*window = new sf::Window (
+                                 sf::VideoMode({window_width, window_height}),
+                                 "SFML + OpenGL",
+                                 sf::Style::Default,
+                                 sf::State::Windowed,
+                                 settings
+                                 );*/
         auto desktop = sf::VideoMode::getDesktopMode().size;
         //window->setVerticalSyncEnabled (true);
         /*window->setPosition(sf::Vector2i(
