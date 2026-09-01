@@ -25,6 +25,11 @@ void Scene::update_all ()
         lights.send_position_relative (camera.inv_v);
     }
 
+void Scene::process_movement() 
+{
+    
+}
+
 void Scene::draw ()
     {
         //colore cielo
