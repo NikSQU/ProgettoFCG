@@ -211,13 +211,17 @@ class Camera
 
     void move(float forward_move, float right_move, float up_move)
     {
+        //Calcolo del vettore front proiettato sul piano XZ (obbligato al piano XZ)
         glm::vec3 flat_front = glm::normalize(glm::vec3(camera_front.x, 0.0f, camera_front.z));
+        
         glm::vec3 right = glm::normalize(glm::cross(flat_front, camera_up));
 
         //Telecamera movement
         camera_pos += flat_front * forward_move;
         camera_pos += right * right_move;
         camera_pos += camera_up * up_move;
+
+        view_projection ();
     }
 
     //vista
