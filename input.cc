@@ -108,6 +108,7 @@ void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
     prev_x = mouse_moved.position.x;
     prev_y = mouse_moved.position.y;
 
+    //Tappa 08
     scene.camera.process_mouse(dx, dy);
     scene.lights.send_position_relative(scene.camera.inv_v);
 }

@@ -37,8 +37,8 @@
 class Setup
 {
 public:
-    //static const int window_width = 800;
-    //static const int window_height = 800;
+    static const int window_width = 800;
+    static const int window_height = 800;
 
     sf::Window* window;
 
@@ -55,10 +55,12 @@ public:
         window = new sf::Window (
             sf::VideoMode::getDesktopMode(),
             "SFML + OpenGL",
-            sf::Style::Default,
-            sf::State::Fullscreen,
+            sf::Style::None,
+            sf::State::Windowed,
             settings
         );
+
+        window->setPosition(sf::Vector2i(0, 0));
         /*window = new sf::Window (
                                  sf::VideoMode({window_width, window_height}),
                                  "SFML + OpenGL",
