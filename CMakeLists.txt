@@ -35,6 +35,7 @@ add_executable(Mulino3D
     scene.cc
     input.cc
     glad.cc
+    rawmouse.cc
 )
 
 # Collegamento delle librerie

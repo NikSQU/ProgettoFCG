@@ -8,6 +8,7 @@
 #include "include/hotshaders.hh"
 #include "scene.hh"
 #include "input.hh"
+#include "rawmouse.hh"
 
 
 /*#define GLAD_GL_IMPLEMENTATION
@@ -749,8 +750,10 @@ int main (int argc, char* argv[])
     window.setMouseCursorVisible(false);
     window.setMouseCursorGrabbed(true);
 
+    RawMouse rawmouse;
     //centratura mouse
-    sf::Mouse::setPosition(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), window);
+    rawmouse.setPosition(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2) + window.getPosition());
+    //sf::Mouse::setPosition(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2), window);
 
     fcg::Shaders shaders ("shader_flat.vert", "shader_flat.frag");
     shaders.use ();
@@ -780,11 +783,11 @@ int main (int argc, char* argv[])
                 handle (*mouse_pressed, scene.camera);
             else if (const auto* mouse_released = event->getIf<sf::Event::MouseButtonReleased> ())
                 handle (*mouse_released, scene.camera);*/
-            else if (const auto* mouse_moved = event->getIf<sf::Event::MouseMoved> ())
-                handle (*mouse_moved, scene);
+            else if (const auto* mouse_moved = event->getIf<sf::Event::MouseMovedRaw> ())
+                rawmouse.event(*mouse_moved);
         }
 
-        handle_realtime_input(scene);
+        handle_realtime_input(scene, rawmouse);
 
         scene.draw ();
         window.display ();

@@ -76,8 +76,15 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
 }
 
 //Tappa 09
-void handle_realtime_input(Scene& scene) 
+void handle_realtime_input(Scene& scene, RawMouse& rawmouse)
 {
+    sf::Vector2f m_delta = rawmouse.delta();
+
+    if(m_delta.x != 0.0f || m_delta.y != 0.0f) {
+        scene.camera.process_mouse(m_delta.x, m_delta.y);
+        scene.lights.send_position_relative(scene.camera.inv_v);
+    }
+
     float speed = 0.01f;
     float fwd = 0.0f, rgt = 0.0f, up = 0.0f;
 
@@ -116,8 +123,8 @@ void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
     }
 }
 */
-
-void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
+/*
+void handle (const sf::Event::MouseMovedRaw& mouse_moved, Scene& scene)
 {
     static float prev_x = mouse_moved.position.x;
     static float prev_y = mouse_moved.position.y;
@@ -131,7 +138,7 @@ void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene)
     //Tappa 08
     scene.camera.process_mouse(dx, dy);
     scene.lights.send_position_relative(scene.camera.inv_v);
-}
+}*/
 
 /*
 void handle (const sf::Event::MouseButtonPressed& mouse_pressed, Camera& camera)
