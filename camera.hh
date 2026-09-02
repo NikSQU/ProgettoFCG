@@ -87,11 +87,13 @@ class Camera
         float limite_prato = 3.0f;
         float altezza_occhi = -0.7f;
 
+        float vecchia_y = camera_pos.y - up_move;
+
         //Controllo del bounding box del prato
         if (camera_pos.x >= -limite_prato && camera_pos.x <= limite_prato &&
             camera_pos.z >= -limite_prato && camera_pos.z <= limite_prato) 
         {
-            if (camera_pos.y < altezza_occhi && camera_pos.y > -2.0f) {
+            if (vecchia_y >= altezza_occhi && camera_pos.y < altezza_occhi) {
                 camera_pos.y = altezza_occhi;
             }
         }
