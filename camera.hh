@@ -84,17 +84,25 @@ class Camera
         // TAPPA 11: Collisione col Prato
         // ===========================================================
         
-        float limite_prato = 3.0f;
+        float raggio_prato = 3.0f;
+        float raggio_prato_sq = raggio_prato * raggio_prato;
+        
         float altezza_occhi = -0.7f;
+        float limite_soffitto = -1.3f;
 
         float vecchia_y = camera_pos.y - up_move;
+        float distanza_dal_centro_sq = (camera_pos.x * camera_pos.x) + (camera_pos.z * camera_pos.z);
 
-        //Controllo del bounding box del prato
-        if (camera_pos.x >= -limite_prato && camera_pos.x <= limite_prato &&
-            camera_pos.z >= -limite_prato && camera_pos.z <= limite_prato) 
+        //Controllo bounding box del prato
+        if (distanza_dal_centro_sq <= raggio_prato_sq) 
         {
+            //Pavimento
             if (vecchia_y >= altezza_occhi && camera_pos.y < altezza_occhi) {
                 camera_pos.y = altezza_occhi;
+            }
+            //Soffitto
+            else if (vecchia_y <= limite_soffitto && camera_pos.y > limite_soffitto) {
+                camera_pos.y = limite_soffitto;
             }
         }
 
