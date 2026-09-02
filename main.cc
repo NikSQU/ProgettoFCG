@@ -108,6 +108,11 @@ int main (int argc, char* argv[])
 
     glEnable (GL_DEPTH_TEST);
 
+    // Set the viewport to the window size
+    sf::Vector2u current_size = window.getSize();
+    glViewport(0, 0, current_size.x, current_size.y);
+    scene.camera.set_window_size(current_size.x, current_size.y);
+    
 
     //// Main Loop ////
 
