@@ -57,7 +57,11 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
     }
 }
 
-//Tappa 09
+
+//////////////
+// TAPPA 09 //
+//////////////
+
 void handle_realtime_input(Scene& scene, fcg::RawMouse& rawmouse)
 {
     sf::Vector2f m_delta = rawmouse.delta();

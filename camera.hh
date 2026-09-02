@@ -6,7 +6,10 @@
 #include "include/hotshaders.hh"
 #include "include/matrices.hh"
 
-//Tappa 07
+
+//////////////
+// TAPPA 07 //
+//////////////
 class Camera
 {
     public:
