@@ -80,6 +80,22 @@ class Camera
         camera_pos += right * right_move;
         camera_pos += camera_up * up_move;
 
+        // ===========================================================
+        // TAPPA 11: Collisione col Prato
+        // ===========================================================
+        
+        float limite_prato = 3.0f;
+        float altezza_occhi = 0.01f;
+
+        //Controllo del bounding box del prato
+        if (camera_pos.x >= -limite_prato && camera_pos.x <= limite_prato &&
+            camera_pos.z >= -limite_prato && camera_pos.z <= limite_prato) 
+        {
+            if (camera_pos.y < altezza_occhi) {
+                camera_pos.y = altezza_occhi;
+            }
+        }
+
         view_projection ();
     }
 
