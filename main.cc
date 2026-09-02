@@ -7,7 +7,7 @@
 #include "include/hotshaders.hh"
 #include "scene.hh"
 #include "input.hh"
-#include "rawmouse.hh"
+#include "include/rawmouse.hh"
 
 
 /////////////////////////////
@@ -94,9 +94,7 @@ int main (int argc, char* argv[])
     window.setMouseCursorVisible(false);
     window.setMouseCursorGrabbed(true);
 
-    RawMouse rawmouse;
-    //centratura mouse
-    rawmouse.setPosition(sf::Vector2i(window.getSize().x / 2, window.getSize().y / 2) + window.getPosition());
+    fcg::RawMouse rawmouse;
     
     fcg::Shaders shaders ("shader_flat.vert", "shader_flat.frag");
     shaders.use ();
@@ -112,7 +110,7 @@ int main (int argc, char* argv[])
     sf::Vector2u current_size = window.getSize();
     glViewport(0, 0, current_size.x, current_size.y);
     scene.camera.set_window_size(current_size.x, current_size.y);
-    
+
 
     //// Main Loop ////
 

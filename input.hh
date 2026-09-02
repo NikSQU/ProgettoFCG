@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Window/Event.hpp>
-#include "rawmouse.hh"
+#include "include/rawmouse.hh"
 
 class Camera;
 class Scene;
@@ -11,4 +11,4 @@ void handle (const sf::Event::KeyPressed& key, fcg::Shaders& shaders, Scene& sce
 void handle (const sf::Event::MouseMoved& mouse_moved, Scene& scene);
 void handle (const sf::Event::MouseButtonPressed& mouse_pressed, Camera& camera);
 void handle (const sf::Event::MouseButtonReleased& mouse_released, Camera& camera);
-void handle_realtime_input(Scene& scene, RawMouse& rawmouse);
+void handle_realtime_input(Scene& scene, fcg::RawMouse& rawmouse);
