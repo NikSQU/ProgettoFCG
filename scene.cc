@@ -24,10 +24,11 @@ void Scene::update_all ()
 
         tempo_giorno += velocita_giorno;
 
-        float raggio_sole = 50.0f;
+        float raggio_sole = 15.0f;
         float altezza_sole = sin(tempo_giorno); //1 giorno, -1 notte
         
-        lights.light_direct_pos_relative = glm::vec3(cos(tempo_giorno) * raggio_sole, altezza_sole * raggio_sole, -10.0f);
+        posizione_sole = glm::vec3(cos(tempo_giorno) * raggio_sole, altezza_sole * raggio_sole, 0.0f);
+        lights.light_direct_pos_relative = posizione_sole;
 
         float intensita = altezza_sole > 0.0f ? altezza_sole : 0.0f;
 
@@ -39,7 +40,8 @@ void Scene::update_all ()
 
         camera.view_projection ();
         lights.send_parameters ();
-        lights.send_position_relative (camera.inv_v);
+        //lights.send_position_relative (camera.inv_v);
+        lights.send_position ();
     }
 
 
@@ -159,4 +161,23 @@ void Scene::draw ()
             glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_vela[0][0]);
             mesh.draw ();
         }
+
+        // ===========================================================
+        // TAPPA 12: Il Sole Fisico
+        // ===========================================================
+
+        lights.material_diffuse = {1.0f, 1.0f, 0.0f};
+        lights.material_ambient = {1.0f, 1.0f, 0.0f};
+        lights.send_parameters();
+
+        // pos sole trigonometrica
+        glm::mat4 s_sole = fcg::scaling (1.0, 1.0, 1.0);
+        glm::mat4 tr_sole = fcg::translation (posizione_sole.x, posizione_sole.y, posizione_sole.z);
+        glm::mat4 sole_mm = tr_sole * s_sole * mesh_mm;
+
+        glUniformMatrix4fv(model_loc, 1, GL_FALSE, &sole_mm[0][0]);
+        glm::mat3 tr_inv_sole = glm::transpose (glm::inverse (glm::mat3 (sole_mm)));
+        glUniformMatrix3fv (tr_inv_model_loc, 1, GL_FALSE, &tr_inv_sole[0][0]);
+        
+        mesh.draw ();
     }

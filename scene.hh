@@ -21,6 +21,7 @@ public:
     float tempo_giorno = 0.0f; 
     float velocita_giorno = 0.005f;
     glm::vec3 colore_cielo = glm::vec3(0.4f, 0.6f, 0.9f);
+    glm::vec3 posizione_sole;
 
     Camera camera;
     Lights lights;
