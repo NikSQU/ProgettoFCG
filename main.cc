@@ -130,7 +130,7 @@ int main (int argc, char* argv[])
         }
 
         handle_realtime_input(scene, rawmouse);
-
+        scene.update_all();
         scene.draw ();
         window.display ();
     }

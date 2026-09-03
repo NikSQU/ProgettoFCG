@@ -45,8 +45,8 @@ void Scene::update_all ()
 
 void Scene::draw ()
     {
-        //colore cielo
-        glClearColor(0.4f, 0.6f, 0.9f, 1.0f);
+        //colore cielo dinamico //Tappa 12
+        glClearColor(colore_cielo.r, colore_cielo.g, colore_cielo.b, 1.0f);
         //Pulizia dei buffer dello schermo
         glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
