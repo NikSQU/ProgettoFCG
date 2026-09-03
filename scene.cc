@@ -166,12 +166,14 @@ void Scene::draw ()
         // TAPPA 12: Il Sole Fisico
         // ===========================================================
 
-        lights.material_diffuse = {1.0f, 1.0f, 0.0f};
-        lights.material_ambient = {1.0f, 1.0f, 0.0f};
+        lights.material_diffuse = {0.0f, 0.0f, 0.0f};
+        lights.material_specular = {0.0f, 0.0f, 0.0f};
+        lights.material_ambient = {1.0f, 0.9f, 0.2f}; //solo che luci ambiente per sole luminoso
         lights.send_parameters();
 
         // pos sole trigonometrica
-        glm::mat4 s_sole = fcg::scaling (1.0, 1.0, 1.0);
+        glm::mat4 s_sole = fcg::scaling (1.5, 1.5, 1.5);
+        glm::mat4 r_sole = glm::rotate (glm::mat4(1.0f), tempo_giorno * 2.0f, glm::vec3(1.0f, 1.0f, 0.5f));
         glm::mat4 tr_sole = fcg::translation (posizione_sole.x, posizione_sole.y, posizione_sole.z);
         glm::mat4 sole_mm = tr_sole * s_sole * mesh_mm;
 
