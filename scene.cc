@@ -20,6 +20,23 @@ void Scene::locations (fcg::Shaders& shaders)
 
 void Scene::update_all ()
     {
+        //Tappa 12
+
+        tempo_giorno += velocita_giorno;
+
+        float raggio_sole = 50.0f;
+        float altezza_sole = sin(tempo_giorno); //1 giorno, -1 notte
+        
+        lights.light_direct_pos_relative = glm::vec3(cos(tempo_giorno) * raggio_sole, altezza_sole * raggio_sole, -10.0f);
+
+        float intensita = altezza_sole > 0.0f ? altezza_sole : 0.0f;
+
+        lights.light_direct_val = {intensita, intensita, intensita};
+        lights.light_ambient_val = {0.1f + (0.2f * intensita), 0.1f + (0.2f * intensita), 0.15f + (0.15f * intensita)};
+        colore_cielo.r = 0.02f + (0.38f * intensita);
+        colore_cielo.g = 0.02f + (0.58f * intensita);
+        colore_cielo.b = 0.10f + (0.80f * intensita);
+
         camera.view_projection ();
         lights.send_parameters ();
         lights.send_position_relative (camera.inv_v);

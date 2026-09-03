@@ -17,6 +17,11 @@ public:
     float velocita_salvata = 0.5f;
     float angolo_rotore = 0.0f;
 
+    // TAPPA 12: Variabili Giorno/Notte
+    float tempo_giorno = 0.0f; 
+    float velocita_giorno = 0.005f;
+    glm::vec3 colore_cielo = glm::vec3(0.4f, 0.6f, 0.9f);
+
     Camera camera;
     Lights lights;
     
