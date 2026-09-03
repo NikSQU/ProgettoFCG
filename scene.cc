@@ -166,6 +166,7 @@ void Scene::draw ()
         // TAPPA 12: Il Sole Fisico
         // ===========================================================
 
+        lights.light_ambient_val = {1.0f, 1.0f, 1.0f};
         lights.material_diffuse = {0.0f, 0.0f, 0.0f};
         lights.material_specular = {0.0f, 0.0f, 0.0f};
         lights.material_ambient = {1.0f, 0.9f, 0.2f}; //solo che luci ambiente per sole luminoso
