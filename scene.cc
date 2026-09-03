@@ -20,16 +20,19 @@ void Scene::locations (fcg::Shaders& shaders)
 
 void Scene::update_all ()
     {
-        //Tappa 12
 
-        tempo_giorno += velocita_giorno;
+        //////////////
+        // TAPPA 12 //
+        //////////////
+
+        float velocita_giorno_din = velocita_rotore * 0.01f;
+        tempo_giorno += velocita_giorno_din;
 
         float raggio_sole = 15.0f;
         float altezza_sole = sin(tempo_giorno); //1 giorno, -1 notte
         
         posizione_sole = glm::vec3(cos(tempo_giorno) * raggio_sole, altezza_sole * raggio_sole, 0.0f);
-        lights.light_direct_pos_relative = posizione_sole;
-
+        
         float intensita = altezza_sole > 0.0f ? altezza_sole : 0.0f;
 
         lights.light_direct_val = {intensita, intensita, intensita};
@@ -40,7 +43,7 @@ void Scene::update_all ()
 
         camera.view_projection ();
         lights.send_parameters ();
-        //lights.send_position_relative (camera.inv_v);
+        lights.light_direct_pos_relative = posizione_sole;
         lights.send_position ();
     }
 
