@@ -9,25 +9,34 @@
 Per compilare la versione finale del progetto (Tappa 12), apri il terminale nella directory principale del progetto e lancia i seguenti comandi:
 
 ```bash
-# 1. Configura il progetto e genera la cartella di build e build-win
-cmake -B build-win -S . -DCMAKE_TOOLCHAIN_FILE='windows-toolchain.cmake' -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+# 1. Configura il progetto e genera la cartella di build
+cmake -B build -S . -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 # 2. Compila il codice sorgente
 cmake --build build
-o
-cmake --build build-win -j $(nproc) 
 
 # 3. Esegui
-./build-win/Mulino3D.exe cylinder.off
-
+./build/Mulino3D cube.off
+# oppure da tappa 02:
+./build/Mulino3D cylinder.off
 ```
-
 
 # Comandi di Gioco
 
+
 ## Movimento (Telecamera FPS)
 
+Fino a tappa 06:
+
+**Visuale Trackball**: Ruota con la scena tendendo premuto il tasto sinistro del mouse. 
+
+
+Da tappa 07 in poi:
+
 **Mouse (Movimento)**: Ruota liberamente la visuale a 360 gradi.
+
+
+Da tappa 09 in poi:
 
 **W / A / S / D**: Cammina (o vola) in avanti, a sinistra, indietro e a destra.
 
@@ -38,10 +47,18 @@ cmake --build build-win -j $(nproc)
 
 ## Manipolazione dell'Universo
 
-Il tempo atmosferico e astronomico è fisicamente vincolato all'accelerazione meccanica del mulino a vento.
+Dalla tappa 03 fino alla tappa 11:
+
+**Freccia Su**: Accelera le pale del mulino.
+
+**Freccia Giù**: Rallenta le pale del mulino.
+
+**Barra Spaziatrice**: Ferma il mulino.
+
+Dalla tappa 12 il tempo atmosferico e astronomico è fisicamente vincolato all'accelerazione meccanica del mulino a vento.
 
 **Freccia Su**: Accelera il tempo.
 
-**Freccia Giù**: Rallenta lo scorrere del tempo.
+**Freccia Giù**: Rallenta il tempo.
 
-**M**: Pausa/Riprendi (Congela istantaneamente l'animazione delle pale, il sole nel cielo e il colore dell'illuminazione ambientale).
+**M**: Ferma/riprendi a far scorrere il tempo.

@@ -17,17 +17,17 @@ L'obiettivo architettonico principale è stato superare il classico approccio pr
 ## Tappa 01: Setup Iniziale (Cmake, SFML e Suolo)
 
 
-Come inizio del progetto ho preso dal laboratorio 7 del professor Rocca una base da cui partire in cui gli ambienti Cmake e SFML sono già stati implementati.
+Come inizio del progetto ho preso dal laboratorio 7 del corso di FCG una base da cui partire in cui gli ambienti Cmake e SFML sono già stati implementati.
 
 Sono presenti già i file utili .hh nella cartella include: **hotshaders.hh** , **matrices.hh** , **mesh.hh** , **rawmouse.hh** , **trackball.hh**
 
 Già presente è anche il file **cube.off** che ci dà la geometria dei modelli iniziale (a forma di cubo).
 
-Infine il primo cambiamento inedito è nel **main.cc** in cui viene disegnata nella funzione ***void draw()*** il suolo su cui baserà l'intero disegno virtuale.
-Usando la libreria Glad per avere delle *matrici 4x4* (**glm::mat4**), creiamo il pavimento (s) che viene poi traslato in basso rispetto al centro della scena. 
+Infine il primo cambiamento è nel **main.cc** in cui viene disegnata nella funzione `void draw()` il suolo su cui baserà l'intero disegno virtuale.
+Usando la libreria Glad per avere delle *matrici 4x4* (`glm::mat4`), creiamo il pavimento (s) che viene poi traslato in basso rispetto al centro della scena. 
 Dopo aver calcolato la matrice di modello finale, viene inviata allo shader insieme alla matrice di vista-proiezione.
 
-![alt text](images/image-1.png)
+![](images/image-1.png)
 
 
 
@@ -36,40 +36,40 @@ Dopo aver calcolato la matrice di modello finale, viene inviata allo shader insi
 
 Inizia in questa tappa la costruzione della modellazione gerarchica della torre del mulino.
 
-Sono stati aggiunti: un nuovo file oggetto **cylinder.off** per il modello base della torre del mulino (per avere una geometria simil curva); è stata poi aggiunta la definizione del disegno della torre del mulino nella funzione ***void draw()***, similare alla creazione precedente del suolo (tramite la composizione di *matrici 4x4*), poggiata poi esattamente sul suolo.
+Sono stati aggiunti: un nuovo file oggetto **cylinder.off** per il modello base della torre del mulino (per avere una geometria simil curva); è stata poi aggiunta la definizione del disegno della torre del mulino nella funzione `void draw()`, similare alla creazione precedente del suolo (tramite la composizione di *matrici 4x4*), poggiata poi esattamente sul suolo.
 
-![alt text](images/image-2.png)
-
-
-## Tappa 03:
+![](images/image-2.png)
 
 
-È stato aggiunto il perno di rotazione delle pale del mulino (mozzo), primo pezzo di animazione continua dentro l'ambiente 3D, disegnato sempre nella funzione ***void draw()***, similare alla creazione precedente del suolo.
+## Tappa 03: Creazione Mozzo e Pale del Mulino
+
+
+È stato aggiunto il perno di rotazione delle pale del mulino (mozzo), primo pezzo di animazione continua dentro l'ambiente 3D, disegnato sempre nella funzione `void draw()`, similare alla creazione precedente del suolo.
 
 Attraverso l'uso di una gerarchia genitore-figlio per le matrici, sono state poi agganciate le quattro pale al rotore, applicando un offset rotazionale di 90 gradi per ciascuna, rendendo la prima versione del mulino completa.
 
-![alt text](images/image.png)
+![](images/image.png)
 
 
-## Tappa 04:
+## Tappa 04: Colori e Luci di Scena
 
 
 Sono stati aggiunti: le vele delle pale del mulino e i colori della scena: torre del mulino, mozzo, suolo e cielo e anche l'illuminazione base per tutti questi elementi (tramite l'uso della classe *Lights* applicando il modello di illuminazione (Ambient, Diffuse, Specular) ai vari elementi).
 
 
-![alt text](images/image-3.png)
+![](images/image-3.png)
 
 
-## Tappa 05:
+## Tappa 05: Controlli iniziali sul Mulino
 
 
 In questa tappa vengono aggiunti i primi controlli interattivi con l'ambiente 3D con il controllo della velocità delle pale del mulino.
 
-Tramite la cattura degli eventi da tastiera(**sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::)**) sono stati aggiunti: comandi con tasto *Up* e *Down* per velocizzare e rallentare la velocità delle pale, tasto *Barra Spaziatrice* per fermare il movimento delle pale.
+Tramite la cattura degli eventi da tastiera(`sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::)`) sono stati aggiunti: comandi con tasto *Up* e *Down* per velocizzare e rallentare la velocità delle pale, tasto *Barra Spaziatrice* per fermare il movimento delle pale.
 
 
 
-## Tappa 06:
+## Tappa 06: 1° Full Refactoring
 
 
 In questa tappa è stato effettuato un full refactoring del progetto. 
@@ -94,20 +94,20 @@ Il **main.cc** non è stato eliminato, rimane ancora in utilizzo per il principa
 
 
 
-## Tappa 07:
+## Tappa 07: Sviluppo Camera Indipendente (Eliminata trackball)
 
 
 In questa tappa inizia lo sviluppo della camera indipendente in *first person view*. 
 
 Sono stati aggiunti: movimento con il mouse libero con drag della visuale tenendo tasto sinistro del mouse, sostituita ed eliminata la trackball come metodo di vista.
-Sono state attuate modifiche nel file **input.cc** e nel file **camera.hh** principalmente con l'implementazione di ***void process_mouse()*** per gestire il *pitch* e lo *yaw* della visuale. 
+Sono state attuate modifiche nel file **input.cc** e nel file **camera.hh** principalmente con l'implementazione di `void process_mouse()` per gestire il *pitch* e lo *yaw* della visuale. 
 
 
-![alt text](images/image-4.png)
+![](images/image-4.png)
 
 
 
-## Tappa 08:
+## Tappa 08: Eliminazione del tasto sinistro premuto per muovere la visuale
 
 
 In questa tappa viene invece fixato il metodo per la gestione del mouse con "*rawmouse*" per riuscire ad avere le migliori prestazioni per il controllo del mouse(e anche altri fix minori), ma principalmente viene rimosso l'obbligo di drag con il mouse sinistro premuto per il movimento della camera.
@@ -117,19 +117,19 @@ Viene inoltre cambiato il modo di visione della finestra in full screen.
 I principali cambiamenti avvengono in **input.cc** con il cambio della handle che gestisce il movimento del mouse.
 
 
-## Tappa 09:
+## Tappa 09: Movimento libero nell'ambiente 3D
 
 
 In questa tappa viene aggiunto il movimento tridimensionale con i comandi *W* *A* *S* *D* per muoversi nella quattro direzioni orizzontali, e con *SHIFT* e la *Barra Spaziatrice* per salire e scendere di quota.
 
-I cambiamenti principali avvengono in **camera.hh** dove viene creata ***void move()*** e ***void process_movement()*** in cui viene scritta la matematica vettoriale e poi sostituita da ***void handle_realtime_input()*** in **input.cc** che gestisce il movimento tramite comandi tastiera.
+I cambiamenti principali avvengono in **camera.hh** dove viene creata `void move()` e `void process_movement()` in cui viene scritta la matematica vettoriale e poi sostituita da `void handle_realtime_input()` in **input.cc** che gestisce il movimento tramite comandi tastiera.
 
 
-![alt text](images/image-5.png)
+![](images/image-5.png)
 
 
 
-## Tappa 10:
+## Tappa 10: 2° Refactoring minore, Aggiunta di Rawmouse
 
 
 In questa tappa è avvenuto un secondo refactoring minore dove viene effettivamente usata la classe *Rawmouse*, per risolvere i problemi di gestione del mouse.
@@ -139,7 +139,7 @@ Oltre ad altri fix minori, viene inoltre viene cambiato il **.gitignore** per la
 
 
 
-## Tappa 11:
+## Tappa 11: Collisioni del prato
 
 Per impedire al giocatore di fluttuare attraverso il pavimento o sprofondare, in questa tappa vengono aggiunte le collisioni per il prato della scena. 
 
@@ -149,56 +149,56 @@ Per risolvere i problemi di compenetrazione da sotto la mappa, è stata implemen
 
 
 
-## Tappa 12:
+## Tappa 12: Ciclo giorno/notte
 
 L'ultima tappa ha introdotto un sistema di illuminazione procedurale.
 Vengono aggiunti l'illuminazione ambientale globale e il colore del cielo che sono calcolati proceduralmente e viene aggiunto anche un sole fisico.
-Tramite *glClearColor* del cielo e la variabile globale dell'intensità ambientale sfumano dinamicamente in base all'altezza (asse Y) della sorgente luminosa, simulando il passaggio dall'alba al buio notturno. 
+Tramite `glClearColor` del cielo e la variabile globale dell'intensità ambientale sfumano dinamicamente in base all'altezza (asse Y) della sorgente luminosa, simulando il passaggio dall'alba al buio notturno. 
 
 Usando funzioni trigonometriche, il sole compie un'orbita nel cielo, e lo scorrere del tempo è stato vincolato all'accelerazione meccanica delle pale del mulino, permettendo la manipolazione del tempo della scena con i comandi *M* per fermare e *Up*/*Down* per velocizzare e rallentare il tempo.
 
-I cambiamenti maggiori avvengono in **scene.cc** dove viene disegnato il sole fisico nella funzione ***void draw()*** e vengono aggiunte le luci distinte a seconda del tempo della scena nella funzione ***void update_all()***
+I cambiamenti maggiori avvengono in **scene.cc** dove viene disegnato il sole fisico nella funzione `void draw()` e vengono aggiunte le luci distinte a seconda del tempo della scena nella funzione `void update_all()`
 
 
-![alt text](images/image-7.png)
+![](images/image-7.png)
 
 
-![alt text](images/image-6.png)
-
-
-
+![](images/image-6.png)
 
 
 
 
 
-# Eventuali problemi riscontrati e le soluzioni tecniche adottate
+
+
+
+# Problemi riscontrati e le soluzioni adottate
 
 ## L'ombreggiatura del Sole su se stesso (Self-Shading):
 
 **Problema**: Durante il calcolo del ciclo notturno, la mesh del Sole diventava nera o marrone scuro perché subiva la diminuzione globale dell'illuminazione ambientale applicata al resto della scena. Essendo calcolato con materiali standard, presentava anche antiestetiche ombreggiature sui propri bordi.
 
-**Soluzione**: All'interno di scene.cc, poco prima di disegnare il Sole (che è l'ultimo oggetto del render), i coefficienti del materiale diffuse e specular sono stati forzati a 0.0, mentre la luce ambientale locale per la mesh del sole è stata settata al valore massimo. Questo l'ha trasformato in un puro solido "emissivo", che non genera ombre su se stesso e rimane brillante anche nel buio.
+**Soluzione**: All'interno di **scene.cc**, poco prima di disegnare il Sole (che è l'ultimo oggetto del render), i coefficienti del materiale diffuse e specular sono stati forzati a 0.0, mentre la luce ambientale locale per la mesh del sole è stata settata al valore massimo. Questo l'ha trasformato in un puro solido "emissivo", che non genera ombre su se stesso e rimane brillante anche nel buio.
 
 ## Il "Teletrasporto" durante le collisioni:
 
 **Problema**: Nelle prime versioni della Tappa 11, se l'utente volava in profondità sotto la mappa ed entrava nei limiti X-Z del prato, veniva istantaneamente "teletrasportato" in superficie. Questo accadeva perché la condizione controllava solo l'altezza assoluta camera_pos.y.
 
-**Soluzione**: È stato aggiunto un calcolo sul frame precedente (vecchia_y = camera_pos.y - up_move). Il giocatore viene fermato sulla superficie solo se nel frame precedente si trovava sopra il livello del suolo, garantendo libertà di volo esplorativo al di fuori o al di sotto dei confini della mappa.
+**Soluzione**: È stato aggiunto un calcolo sul frame precedente (`vecchia_y = camera_pos.y - up_move`). Il giocatore viene fermato sulla superficie solo se nel frame precedente si trovava sopra il livello del suolo, garantendo libertà di volo esplorativo al di fuori o al di sotto dei confini della mappa.
 
 ## Conflitti della cache di CMake (Ninja vs Unix Makefiles):
 
-**Problema**: Durante lo sviluppo, il passaggio tra generatori diversi di CMake in VSCode causava il fallimento del download delle dipendenze (SFML) tramite FetchContent, mandando il debugger in FATAL_ERROR.
+**Problema**: Durante lo sviluppo, il passaggio tra generatori diversi di CMake in VSCode causava il fallimento del download delle dipendenze (SFML) tramite `FetchContent`, mandando il debugger in `FATAL_ERROR`.
 
-**Soluzione**: È stato necessario rimuovere brutalmente (via terminale con rm -rf build) l'intera directory di output per eliminare i file di cache obsoleti annidati dentro _deps, forzando CMake a rigenerare l'albero di dipendenze in modo pulito.
+**Soluzione**: È stato necessario rimuovere brutalmente (via terminale con `rm -rf build`) l'intera directory di output per eliminare i file di cache obsoleti annidati dentro *_deps/*, forzando CMake a rigenerare l'albero di dipendenze in modo pulito.
 
 
 
-# L'indicazione di eventuali risorse esterne utilizzate
+# Risorse esterne utilizzate
 
-**Laboratorio 7 (Corso di FCG)**: Codice sorgente base fornito dal Docente, utilizzato come scaffold per le pipeline di CMake, i file header matematici (matrices.hh, trackball.hh) e gli shader base.
+**Laboratorio 7 (Corso di FCG)**: Codice sorgente base fornito dal Docente, utilizzato come scaffold per le pipeline di CMake, i file header matematici (**matrices.hh**, **trackball.hh**) e gli shader base.
 
-**Documentazione ufficiale di SFML (v3.0.0)**: Consultata per la corretta gestione degli eventi sf::Event e del windowing (sf::Window).
+**Documentazione ufficiale di SFML (v3.0.0)**: Consultata per la corretta gestione degli eventi `sf::Event` e del windowing (`sf::Window`).
 
 **GLM (OpenGL Mathematics)**: Libreria matematica utilizzata per tutte le operazioni su matrici e vettori nello spazio 3D.
 
