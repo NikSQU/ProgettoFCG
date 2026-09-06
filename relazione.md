@@ -151,7 +151,7 @@ Per risolvere i problemi di compenetrazione da sotto la mappa, è stata implemen
 
 ## Tappa 12: Ciclo giorno/notte
 
-L'ultima tappa ha introdotto un sistema di illuminazione procedurale.
+Questa tappa ha introdotto un sistema di illuminazione procedurale.
 Vengono aggiunti l'illuminazione ambientale globale e il colore del cielo che sono calcolati proceduralmente e viene aggiunto anche un sole fisico.
 Tramite `glClearColor` del cielo e la variabile globale dell'intensità ambientale sfumano dinamicamente in base all'altezza (asse Y) della sorgente luminosa, simulando il passaggio dall'alba al buio notturno. 
 
@@ -168,6 +168,14 @@ I cambiamenti maggiori avvengono in **scene.cc** dove viene disegnato il sole fi
 
 
 
+### Tappa 13: Correzioni all'Illuminazione e Rifiniture
+
+In questa tappa sono state risolte le anomalie legate all'illuminazione e alla gestione dello stato OpenGL introdotte con il ciclo giorno/notte:
+
+* **Luce globale indipendente dalla telecamera:** rimosse le chiamate a `send_position_relative` in **input.cc** e assegnata la posizione del sole direttamente a `light_direct_pos` in **scene.cc** (`update_all`), risolvendo lo scatto improvviso dell'illuminazione quando la telecamera si muove.
+* **Ripristino componente speculare:** ripristinato `material_specular` prima di disegnare il mulino per evitare che restasse azzerato dal rendering del sole nei frame successivi.
+* **Logica del rotore:** spostato l'incremento di `angolo_rotore` da `draw()` a `update_all()`, inserendo il reset a 360° per prevenire problemi di precisione numerica.
+* **Sole notturno:** modulata la luce ambientale della sfera del sole con `intensita` per spegnerla quando scende sotto l'orizzonte.
 
 
 

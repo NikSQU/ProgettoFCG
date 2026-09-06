@@ -6,7 +6,6 @@
 class Lights
 {
 public:
-    glm::vec3 light_direct_pos_relative = {2.0, 2.0, 0.0}; // xyz (relative to camera position)
     glm::vec3 light_direct_pos = {0.0, 0.0, 0.0};   // xyz (absolute, in world coordinates)
     glm::vec3 light_direct_val = {1.0, 1.0, 1.0};   // rgb
     glm::vec3 light_ambient_val = {0.1, 0.1, 0.1};  // rgb
@@ -50,14 +49,6 @@ public:
         glUniform3fv (material_ambient_loc, 1, &material_ambient[0]);
         glUniform3fv (material_specular_loc, 1, &material_specular[0]);
         glUniform1fv (material_shininess_loc, 1, &material_shininess);
-    }
-
-    void send_position_relative (const glm::mat4& inverse_view_matrix)
-    {
-        glm::vec4 p = glm::vec4 (light_direct_pos_relative, 1.0);
-        p = inverse_view_matrix * p;
-        light_direct_pos = {p.x, p.y, p.z};
-        send_position ();
     }
 
     void send_position ()

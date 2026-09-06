@@ -16,6 +16,7 @@ public:
     float velocita_rotore = 0.5f;
     float velocita_salvata = 0.5f;
     float angolo_rotore = 0.0f;
+    float intensita = 0.0f;
 
     // TAPPA 12: Variabili Giorno/Notte
     float tempo_giorno = 0.0f; 

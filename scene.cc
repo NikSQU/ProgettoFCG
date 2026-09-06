@@ -32,12 +32,17 @@ void Scene::update_all ()
             tempo_giorno -= 2.0f * glm::pi<float>();
         }
 
+        angolo_rotore += velocita_rotore;
+        if (angolo_rotore >= 360.0f) {
+            angolo_rotore -= 360.0f;
+        }
+
         float raggio_sole = 15.0f;
         float altezza_sole = sin(tempo_giorno); //1 giorno, -1 notte
         
         posizione_sole = glm::vec3(cos(tempo_giorno) * raggio_sole, altezza_sole * raggio_sole, 0.0f);
         
-        float intensita = altezza_sole > 0.0f ? altezza_sole : 0.0f;
+        intensita = altezza_sole > 0.0f ? altezza_sole : 0.0f;
 
         lights.light_direct_val = {intensita, intensita, intensita};
         lights.light_ambient_val = {0.1f + (0.2f * intensita), 0.1f + (0.2f * intensita), 0.15f + (0.15f * intensita)};
@@ -47,7 +52,7 @@ void Scene::update_all ()
 
         camera.view_projection ();
         lights.send_parameters ();
-        lights.light_direct_pos_relative = posizione_sole;
+        lights.light_direct_pos = posizione_sole;
         lights.send_position ();
     }
 
@@ -64,6 +69,7 @@ void Scene::draw ()
         // ===========================================================
         
         //Colori suolo
+        lights.material_specular = {1.0f, 1.0f, 1.0f};
         lights.material_diffuse = {0.2f, 0.6f, 0.2f};
         lights.material_ambient = {0.1f, 0.3f, 0.1f};
         lights.send_parameters();
@@ -110,8 +116,6 @@ void Scene::draw ()
         lights.material_diffuse = {0.3f, 0.15f, 0.05f}; 
         lights.material_ambient = {0.15f, 0.07f, 0.02f};
         lights.send_parameters();
-
-        angolo_rotore += velocita_rotore;
 
         glm::mat4 s_rotore = fcg::scaling (0.1, 0.1, 0.2);
         
@@ -176,7 +180,7 @@ void Scene::draw ()
         lights.light_ambient_val = {1.0f, 1.0f, 1.0f};
         lights.material_diffuse = {0.0f, 0.0f, 0.0f};
         lights.material_specular = {0.0f, 0.0f, 0.0f};
-        lights.material_ambient = {1.0f, 0.9f, 0.2f}; //solo che luci ambiente per sole luminoso
+        lights.material_ambient = glm::vec3(1.0f, 0.9f, 0.2f) * intensita; //solo che luci ambiente per sole luminoso
         lights.send_parameters();
 
         // pos sole trigonometrica

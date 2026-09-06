@@ -68,7 +68,6 @@ void handle_realtime_input(Scene& scene, fcg::RawMouse& rawmouse)
 
     if(m_delta.x != 0.0f || m_delta.y != 0.0f) {
         scene.camera.process_mouse(m_delta.x, m_delta.y);
-        scene.lights.send_position_relative(scene.camera.inv_v);
     }
 
     float speed = 0.01f;
@@ -83,6 +82,5 @@ void handle_realtime_input(Scene& scene, fcg::RawMouse& rawmouse)
 
     if (fwd != 0.0f || rgt != 0.0f || up != 0.0f) {
         scene.camera.move(fwd, rgt, up);
-        scene.lights.send_position_relative(scene.camera.inv_v);
     }
 }
