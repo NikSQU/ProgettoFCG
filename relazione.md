@@ -1,16 +1,17 @@
-# Relazione di Progetto: Mulino 3D Interattivo
+# Relazione del Progetto: Mulino 3D Interattivo
 **Autore:** Nicolò Vernetti
 **Matricola:** S6382763
 **Corso:** Fondamenti di Computer Grafica
 
 # L'Idea
 
-Il progetto consiste nell'esposizione di un mulino che gli utenti potranno guardare in libertà spostandosi in un ambiente 3D.
-Si può inoltre manipolare il tempo dell'ambiente 3D velocizzandolo, rallentandolo o fermandolo.
-Sarà presente anche un "sole" abbozzato che prova a simulare il fattore di passaggio del tempo ciclando intorno all'ambiente 3D.
+Il progetto consiste nell'esposizione di un mulino che gli utenti potranno esplorare liberamente con una telecamera in prima persone spostandosi in un ambiente 3D.
+Può inoltre manipolare il tempo dell'ambiente 3D velocizzandolo, rallentandolo o fermandolo.
+Sarà presente anche un ciclo giorno/notte con un "sole" abbozzato che prova a simulare il fattore di passaggio del tempo ciclando intorno all'ambiente 3D.
 
-Il progetto è una scena 3D interattiva renderizzata tramite **OpenGL 4.1** e **SFML 3.0.0**. 
-L'obiettivo principale è stato sviluppare un codice modulare e orientato agli oggetti, superando il classico approccio a singolo file.
+L'applicazione è renderizzata tramite **OpenGL 4.1** per la pipeline grafica e **SFML 3.0.0** per la gestione della finestra e degli eventi di input. 
+
+L'obiettivo architettonico principale è stato superare il classico approccio procedurale a singolo file, sviluppando un codice modulare, orientato agli oggetti e facilmente manutenibile.
 
 
 ## Tappa 01: Setup Iniziale (Cmake, SFML e Suolo)
@@ -20,27 +21,32 @@ Come inizio del progetto ho preso dal laboratorio 7 del professor Rocca una base
 
 Sono presenti già i file utili .hh nella cartella include: **hotshaders.hh** , **matrices.hh** , **mesh.hh** , **rawmouse.hh** , **trackball.hh**
 
-Sono anche già presenti il file **cube.off** che ci dà la geometria dei modelli iniziale (a forma di cubo).
+Già presente è anche il file **cube.off** che ci dà la geometria dei modelli iniziale (a forma di cubo).
 
-Infine il primo cambiamento inedito è nel **main.cc** in cui viene disegnata nella funzione ***void draw()*** il suolo su cui baserà l'intero disegno virtuale. Usando la libreria Glad per avere delle *matrici 4x4* (**glm::mat4**), creiamo il pavimento (s) che viene poi traslato in basso rispetto al centro della scena. Dopo aver calcolato la matrice di modello finale, viene inviata allo shader e la matrice di vista-proiezione.
+Infine il primo cambiamento inedito è nel **main.cc** in cui viene disegnata nella funzione ***void draw()*** il suolo su cui baserà l'intero disegno virtuale.
+Usando la libreria Glad per avere delle *matrici 4x4* (**glm::mat4**), creiamo il pavimento (s) che viene poi traslato in basso rispetto al centro della scena. 
+Dopo aver calcolato la matrice di modello finale, viene inviata allo shader insieme alla matrice di vista-proiezione.
 
 ![alt text](images/image-1.png)
 
 
-## Tappa 02: 
 
-Inizia in questa tappa la costruzione del mulino
+## Tappa 02: Struttura Base della Torre del Mulino
 
-Sono stati aggiunti: un nuovo file oggetto **cylinder.off** per il modello base della torre del mulino; è stata poi aggiunta la definizione del disegno della torre del mulino nella funzione ***void draw()***, similare alla creazione precedente del suolo (tramite l'uso di *matrici 4x4*)
+
+Inizia in questa tappa la costruzione della modellazione gerarchica della torre del mulino.
+
+Sono stati aggiunti: un nuovo file oggetto **cylinder.off** per il modello base della torre del mulino (per avere una geometria simil curva); è stata poi aggiunta la definizione del disegno della torre del mulino nella funzione ***void draw()***, similare alla creazione precedente del suolo (tramite la composizione di *matrici 4x4*), poggiata poi esattamente sul suolo.
 
 ![alt text](images/image-2.png)
 
 
 ## Tappa 03:
 
-Sono stati aggiunti: il perno di rotazione delle pale del mulino (mozzo), primo pezzo di animazione dentro l'ambiente 3D, disegnato sempre nella funzione ***void draw()***, similare alla creazione precedente del suolo.
 
-Sono inoltre state aggiunte le prime pale intorno al rotore, rendendo la prima versione del mulino completa.
+È stato aggiunto il perno di rotazione delle pale del mulino (mozzo), primo pezzo di animazione continua dentro l'ambiente 3D, disegnato sempre nella funzione ***void draw()***, similare alla creazione precedente del suolo.
+
+Attraverso l'uso di una gerarchia genitore-figlio per le matrici, sono state poi agganciate le quattro pale al rotore, applicando un offset rotazionale di 90 gradi per ciascuna, rendendo la prima versione del mulino completa.
 
 ![alt text](images/image.png)
 
@@ -48,18 +54,19 @@ Sono inoltre state aggiunte le prime pale intorno al rotore, rendendo la prima v
 ## Tappa 04:
 
 
-Sono stati aggiunti: le vele delle pale del mulino, i colori della scena: torre del mulino, mozzo, suolo e cielo e anche l'illuminazione base per tutti questi elementi (tramite l'uso della classe Lights).
+Sono stati aggiunti: le vele delle pale del mulino e i colori della scena: torre del mulino, mozzo, suolo e cielo e anche l'illuminazione base per tutti questi elementi (tramite l'uso della classe *Lights* applicando il modello di illuminazione (Ambient, Diffuse, Specular) ai vari elementi).
 
 
 ![alt text](images/image-3.png)
-
 
 
 ## Tappa 05:
 
 
 In questa tappa vengono aggiunti i primi controlli interattivi con l'ambiente 3D con il controllo della velocità delle pale del mulino.
-Sono stati aggiunti: comandi con tasto *Up* e *Down* per velocizzare e rallentare la velocità delle pale, tasto *Barra Spaziatrice* per fermare il movimento delle pale.
+
+Tramite la cattura degli eventi da tastiera(**sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::)**) sono stati aggiunti: comandi con tasto *Up* e *Down* per velocizzare e rallentare la velocità delle pale, tasto *Barra Spaziatrice* per fermare il movimento delle pale.
+
 
 
 ## Tappa 06:
@@ -68,14 +75,20 @@ Sono stati aggiunti: comandi con tasto *Up* e *Down* per velocizzare e rallentar
 In questa tappa è stato effettuato un full refactoring del progetto. 
 
 Il cambiamento principale è la divisione delle classi del **main.cc** in diversi file:
-**input.cc**: che gestisce le diverse handle di Sfml (*SFML Callbacks*)
+
+**input.cc**: che gestisce le diverse eventi (handle) di Sfml (*SFML Callbacks*)
 Con il rispettivo file header **input.hh**
-**scene.cc**: che gestisce la classe *Scene* (La princiaple classe dove viene raffigurata la scena)
+
+**scene.cc**: che gestisce la classe *Scene*, responsabile dell'aggiornamento delle matrici e delle chiamate di rendering (La principale classe dove viene raffigurata la scena)
 Con il rispettivo file header **scene.hh**
+
 **lights.hh**: che gestice la classe *Lights* (dove vengono gestiti i colori e luci della scena)
+
 **camera.hh**: che gestice la classe *Camera* (che definisce il movimento della telecamera, che determina la vista della scena)
-**gpumesh.hh**: che gestisce la classe *GPUmesh* (che a sua volta gestisce le mesh con i file da caricare per la gpu)
-**glad.cc**: semplice file da richiamare per la gestione di glad per il progetto. (?)
+
+**gpumesh.hh**: che gestisce la classe *GPUmesh* (gestione del caricamento delle geometrie sulla memoria video)
+
+**glad.cc**: inclusione del loader ufficiale di OpenGL per il caricamento a runtime dei puntatori alle funzioni della GPU grafica.
 
 Il **main.cc** non è stato eliminato, rimane ancora in utilizzo per il principale main loop per costruire la scena chiamando le funzioni delle altre classi ed è anche rimasta nel main la classe *Setup* che si occupa del gestire il setup iniziale della finestra e di OpenGL.
 
@@ -85,8 +98,9 @@ Il **main.cc** non è stato eliminato, rimane ancora in utilizzo per il principa
 
 
 In questa tappa inizia lo sviluppo della camera indipendente in *first person view*. 
-Sono stati aggiunti: movimento con il mouse libero con drag della visuale tenendo tasto sinistro del mouse, eliminata la trackball come metodo di vista.
-Sono state attuate modifiche nel file **input.cc** e nel file **camera.hh** principalmente con l'implementazione di ***void process_mouse()***. 
+
+Sono stati aggiunti: movimento con il mouse libero con drag della visuale tenendo tasto sinistro del mouse, sostituita ed eliminata la trackball come metodo di vista.
+Sono state attuate modifiche nel file **input.cc** e nel file **camera.hh** principalmente con l'implementazione di ***void process_mouse()*** per gestire il *pitch* e lo *yaw* della visuale. 
 
 
 ![alt text](images/image-4.png)
@@ -97,6 +111,7 @@ Sono state attuate modifiche nel file **input.cc** e nel file **camera.hh** prin
 
 
 In questa tappa viene invece fixato il metodo per la gestione del mouse con "*rawmouse*" per riuscire ad avere le migliori prestazioni per il controllo del mouse(e anche altri fix minori), ma principalmente viene rimosso l'obbligo di drag con il mouse sinistro premuto per il movimento della camera.
+
 Viene inoltre cambiato il modo di visione della finestra in full screen.
 
 I principali cambiamenti avvengono in **input.cc** con il cambio della handle che gestisce il movimento del mouse.
@@ -107,7 +122,7 @@ I principali cambiamenti avvengono in **input.cc** con il cambio della handle ch
 
 In questa tappa viene aggiunto il movimento tridimensionale con i comandi *W* *A* *S* *D* per muoversi nella quattro direzioni orizzontali, e con *SHIFT* e la *Barra Spaziatrice* per salire e scendere di quota.
 
-I cambiamenti principali avvengono in **camera.hh** dove viene creata ***void move()*** e ***void process_movement()*** e poi sostituita da ***void handle_realtime_input()*** in **input.cc** che gestisce il movimento tramite comandi tastiera.
+I cambiamenti principali avvengono in **camera.hh** dove viene creata ***void move()*** e ***void process_movement()*** in cui viene scritta la matematica vettoriale e poi sostituita da ***void handle_realtime_input()*** in **input.cc** che gestisce il movimento tramite comandi tastiera.
 
 
 ![alt text](images/image-5.png)
@@ -120,23 +135,26 @@ I cambiamenti principali avvengono in **camera.hh** dove viene creata ***void mo
 In questa tappa è avvenuto un secondo refactoring minore dove viene effettivamente usata la classe *Rawmouse*, per risolvere i problemi di gestione del mouse.
 Viene aggiunto un file **rawmouse.cc** e il suo header **rawmouse.hh** (Successivamente levato perchè non mi ero accorto fosse già presente in *include/*) e vengono modificati i diversi tipi di MouseMoved in Rawmouse per le handle di **input.cc**. 
 
-Oltre ad altri fix minori, viene inoltre viene cambiato il **.gitignore** per la creazione *build-win/* e aggiunto il **windows-toolchain.cmake** per avere una compilazione più veloce e efficiente e viene risettato anche OpenGL. (?)
+Oltre ad altri fix minori, viene inoltre viene cambiato il **.gitignore** per la creazione *build-win/* e aggiunto il **windows-toolchain.cmake**, configurando correttamente l'ambiente per permettere una robusta cross-compilazione per ambienti Windows e viene risettato anche OpenGL.
 
 
 
 ## Tappa 11:
 
+Per impedire al giocatore di fluttuare attraverso il pavimento o sprofondare, in questa tappa vengono aggiunte le collisioni per il prato della scena. 
 
-In questa tappa vengono aggiunte le collisioni per il prato della scena. Collisioni prima per il pavimento a forma quadrata, cambiata poi in una collisione circolare, poi per il "sotto-pavimento" (soffitto) è stato aggiunto un controllo continuo sull'asse Y che impedisce compenetrazioni e cadute accidentali quando ci si trova sotto (e anche sopra) il prato.
+Dopo un prototipo basato su una hitbox quadrata, ho scelto un controllo radiale che ricalca fedelmente la mesh del prato.
 
-Quindi è stato utilizzato il concetto di *Continuous Collision Detection* per questa tappa.
+Per risolvere i problemi di compenetrazione da sotto la mappa, è stata implementata una logica di *Continuous Collision Detection*: calcolando la posizione precedente del giocatore sull'asse Y, il sistema riconosce se l'utente sta atterrando sul prato o ci sta sbattendo contro dal basso (soffitto), bloccando il vettore di movimento in modo appropriato.
 
 
 
 ## Tappa 12:
 
+L'ultima tappa ha introdotto un sistema di illuminazione procedurale.
+Vengono aggiunti l'illuminazione ambientale globale e il colore del cielo che sono calcolati proceduralmente e viene aggiunto anche un sole fisico.
+Tramite *glClearColor* del cielo e la variabile globale dell'intensità ambientale sfumano dinamicamente in base all'altezza (asse Y) della sorgente luminosa, simulando il passaggio dall'alba al buio notturno. 
 
-In questa tappa vengono aggiunti l'illuminazione ambientale globale e il colore del cielo (tramite *glClearColor*) che sono calcolati proceduralmente e viene aggiunto anche un sole fisico.
 Usando funzioni trigonometriche, il sole compie un'orbita nel cielo, e lo scorrere del tempo è stato vincolato all'accelerazione meccanica delle pale del mulino, permettendo la manipolazione del tempo della scena con i comandi *M* per fermare e *Up*/*Down* per velocizzare e rallentare il tempo.
 
 I cambiamenti maggiori avvengono in **scene.cc** dove viene disegnato il sole fisico nella funzione ***void draw()*** e vengono aggiunte le luci distinte a seconda del tempo della scena nella funzione ***void update_all()***
@@ -154,7 +172,38 @@ I cambiamenti maggiori avvengono in **scene.cc** dove viene disegnato il sole fi
 
 
 
--Eventuali problemi riscontrati e le soluzioni tecniche adottate. 
+# Eventuali problemi riscontrati e le soluzioni tecniche adottate
+
+## L'ombreggiatura del Sole su se stesso (Self-Shading):
+
+**Problema**: Durante il calcolo del ciclo notturno, la mesh del Sole diventava nera o marrone scuro perché subiva la diminuzione globale dell'illuminazione ambientale applicata al resto della scena. Essendo calcolato con materiali standard, presentava anche antiestetiche ombreggiature sui propri bordi.
+
+**Soluzione**: All'interno di scene.cc, poco prima di disegnare il Sole (che è l'ultimo oggetto del render), i coefficienti del materiale diffuse e specular sono stati forzati a 0.0, mentre la luce ambientale locale per la mesh del sole è stata settata al valore massimo. Questo l'ha trasformato in un puro solido "emissivo", che non genera ombre su se stesso e rimane brillante anche nel buio.
+
+## Il "Teletrasporto" durante le collisioni:
+
+**Problema**: Nelle prime versioni della Tappa 11, se l'utente volava in profondità sotto la mappa ed entrava nei limiti X-Z del prato, veniva istantaneamente "teletrasportato" in superficie. Questo accadeva perché la condizione controllava solo l'altezza assoluta camera_pos.y.
+
+**Soluzione**: È stato aggiunto un calcolo sul frame precedente (vecchia_y = camera_pos.y - up_move). Il giocatore viene fermato sulla superficie solo se nel frame precedente si trovava sopra il livello del suolo, garantendo libertà di volo esplorativo al di fuori o al di sotto dei confini della mappa.
+
+## Conflitti della cache di CMake (Ninja vs Unix Makefiles):
+
+**Problema**: Durante lo sviluppo, il passaggio tra generatori diversi di CMake in VSCode causava il fallimento del download delle dipendenze (SFML) tramite FetchContent, mandando il debugger in FATAL_ERROR.
+
+**Soluzione**: È stato necessario rimuovere brutalmente (via terminale con rm -rf build) l'intera directory di output per eliminare i file di cache obsoleti annidati dentro _deps, forzando CMake a rigenerare l'albero di dipendenze in modo pulito.
 
 
--L'indicazione di eventuali risorse esterne utilizzate (con le relative fonti).
+
+# L'indicazione di eventuali risorse esterne utilizzate
+
+**Laboratorio 7 (Corso di FCG)**: Codice sorgente base fornito dal Docente, utilizzato come scaffold per le pipeline di CMake, i file header matematici (matrices.hh, trackball.hh) e gli shader base.
+
+**Documentazione ufficiale di SFML (v3.0.0)**: Consultata per la corretta gestione degli eventi sf::Event e del windowing (sf::Window).
+
+**GLM (OpenGL Mathematics)**: Libreria matematica utilizzata per tutte le operazioni su matrici e vettori nello spazio 3D.
+
+**Glad**: Generatore di loader per l'acquisizione dei puntatori delle funzioni OpenGL specifiche della macchina ospite.
+
+**LearnOpenGL (Joey de Vries)**: Riferimento teorico per il funzionamento del modello di illuminazione Phong/Gouraud, il calcolo della matrice LookAt della telecamera e le basi del setup di input FPS.
+
+**Gemini AI**: Per correzioni, dubbi e idee di sviluppo.
