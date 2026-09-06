@@ -21,6 +21,13 @@ cmake --build build
 ./build/Mulino3D cylinder.off
 ```
 
+# Istruzioni di Compilazione Completa (Tutte le tappe)
+
+```bash
+./stages.sh all
+```
+
+
 # Comandi di Gioco
 
 
