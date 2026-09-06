@@ -28,6 +28,10 @@ void Scene::update_all ()
         float velocita_giorno_din = velocita_rotore * 0.01f;
         tempo_giorno += velocita_giorno_din;
 
+        if(tempo_giorno > 2.0f * glm::pi<float>()) { //per evitare overflow
+            tempo_giorno -= 2.0f * glm::pi<float>();
+        }
+
         float raggio_sole = 15.0f;
         float altezza_sole = sin(tempo_giorno); //1 giorno, -1 notte
         
