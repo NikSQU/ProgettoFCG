@@ -240,7 +240,7 @@ compile_command() {
 
         # Run CMake build
         print_info "Running: cmake --build build"
-        cmake --build build
+        cmake --build build --parallel
         if [ $? -ne 0 ]; then
             print_error "CMake build failed for $stage_name at $(pwd)"
             print_error "Failed command: cmake --build build"

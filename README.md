@@ -23,6 +23,7 @@ cmake --build build
 
 # Istruzioni di Compilazione Completa (Tutte le tappe)
 
+Per compilare e estrarre il progetto completo, tappa a tappa di tutte le tappe, esegui:
 ```bash
 ./stages.sh all
 ```
